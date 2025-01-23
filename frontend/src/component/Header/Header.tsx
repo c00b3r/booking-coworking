@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 
 export default function Header() {
   return (
-    <div>
+    <header>
       <Flex className='header' justify='space-between'>
         <Flex.Item>
           <div className='header__navigate'>
@@ -57,6 +57,6 @@ export default function Header() {
           </Flex>
         </Flex.Item>
       </Flex>
-    </div>
+    </header>
   );
 }

@@ -29,13 +29,13 @@
 
 .nav-link {
   text-decoration: none;
-  font-family: "VK Sans Display", sans-serif;
+  font-family: "VK Sans Display Regular";
   font-weight: 500;
   font-size: 16px;
   line-height: 20px;
   color: #000000;
   cursor: pointer;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.1px;
 }
 
 .nav-link.active {
