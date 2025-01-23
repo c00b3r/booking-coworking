@@ -9,7 +9,7 @@ export default function LoginPage() {
 
   const handleLogin = (role: "admin" | "user" | null) => {
     login(role);
-    navigate(`/${role}`);
+    navigate(`/${role}/booking`);
   };
   return (
     <div className='login-container'>
