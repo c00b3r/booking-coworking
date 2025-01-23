@@ -8,6 +8,8 @@ import { AuthProvider } from "./context/AuthContext.tsx";
 import PrivateRoute from "./utils/PrivateRoute.tsx";
 import UserDashboard from "./pages/UserDashboard/UserDashboard.tsx";
 import AdminDashboard from "./pages/AdminDashboard/AdminDashboard.tsx";
+import BookingPage from "./pages/BookingPage/BookingPage.tsx";
+import HistoryPage from "./pages/HistoryPage/HistoryPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -17,7 +19,16 @@ const router = createBrowserRouter([
   {
     path: "/user",
     element: <PrivateRoute />,
-    children: [{ path: "", element: <UserDashboard /> }],
+    children: [
+      {
+        path: "",
+        element: <UserDashboard />,
+        children: [
+          { path: "booking", element: <BookingPage /> },
+          { path: "history", element: <HistoryPage /> },
+        ],
+      },
+    ],
   },
   {
     path: "/admin",
