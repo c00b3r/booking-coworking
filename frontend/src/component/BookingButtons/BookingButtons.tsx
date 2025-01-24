@@ -19,16 +19,18 @@ export default function BookingButtons() {
   const [canOpenModal, setOpenModal] = useState(false);
   const [datePicker, setDatePicker] = useState<Date | undefined>(new Date());
   const [numberOfPeople, setNumberOfPeople] = useState("");
-  const [selectedRange, setSelectedRange] = useState(null);
+  const [selectedRange, setSelectedRange] = useState<[string, string] | null>(
+    null
+  );
   const [isConferenceOpen, setIsConferenceOpen] = useState(false);
   const [isEventOpen, setIsEventOpen] = useState(false);
   const [header, setHeader] = useState("");
   const [telephone, setTelephone] = useState("");
 
-  const handleDateChange = (dates, dateStrings) => {
+  const handleDateChange = (_: unknown, dateStrings: [string, string]) => {
     setSelectedRange(dateStrings);
   };
-
+  console.log(selectedRange);
   useEffect(() => {
     if (canOpenModal) {
       document.body.style.overflow = "hidden";

@@ -10,6 +10,7 @@ import UserDashboard from "./pages/UserDashboard/UserDashboard.tsx";
 import AdminDashboard from "./pages/AdminDashboard/AdminDashboard.tsx";
 import BookingPage from "./pages/BookingPage/BookingPage.tsx";
 import HistoryPage from "./pages/HistoryPage/HistoryPage.tsx";
+import UserPage from "./pages/UserPage/UserPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,7 @@ const router = createBrowserRouter([
         children: [
           { path: "booking", element: <BookingPage /> },
           { path: "history", element: <HistoryPage /> },
+          { path: "profile", element: <UserPage /> },
         ],
       },
     ],

@@ -2,7 +2,7 @@
   "users": [
     {
       "userid": "1",
-      "name": "Иван",
+      "name": "Иванов Петр Владимирович",
       "email": "ivan@example.com",
       "keycloakId": "abc123",
       "id": "688a"
@@ -10,7 +10,7 @@
     {
       "id": "e672",
       "userId": "2",
-      "name": "Хован Газонюх",
+      "name": "Админов Админ Админович",
       "email": "makar@example.com",
       "keycloakId": "123"
     }
