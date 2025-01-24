@@ -12,16 +12,24 @@ import {
 import { useEffect, useState } from "react";
 import { DatePicker } from "antd";
 import "./BookingButtons.css";
+import { Bookings } from "../../types/interface";
 
 const { RangePicker } = DatePicker;
 
-export default function BookingButtons() {
+interface BookingButtonsProps {
+  setBooking: React.Dispatch<React.SetStateAction<Bookings[]>>;
+}
+
+export default function BookingButtons({ setBooking }: BookingButtonsProps) {
   const [canOpenModal, setOpenModal] = useState(false);
-  const [datePicker, setDatePicker] = useState<Date | undefined>(new Date());
-  const [numberOfPeople, setNumberOfPeople] = useState("");
-  const [selectedRange, setSelectedRange] = useState<[string, string] | null>(
-    null
+  const [datePicker, setDatePicker] = useState<Date | undefined>(
+    () => new Date()
   );
+  const [numberOfPeople, setNumberOfPeople] = useState("");
+  const [selectedRange, setSelectedRange] = useState<[string, string]>([
+    "",
+    "",
+  ]);
   const [isConferenceOpen, setIsConferenceOpen] = useState(false);
   const [isEventOpen, setIsEventOpen] = useState(false);
   const [header, setHeader] = useState("");
@@ -30,7 +38,71 @@ export default function BookingButtons() {
   const handleDateChange = (_: unknown, dateStrings: [string, string]) => {
     setSelectedRange(dateStrings);
   };
-  console.log(selectedRange);
+
+  const handleBooking = async () => {
+    const selectedDate = datePicker || new Date();
+    const year = selectedDate.getFullYear();
+    const month = String(selectedDate.getMonth() + 1).padStart(2, "0");
+    const day = String(selectedDate.getDate()).padStart(2, "0");
+
+    const startTime = `${year}-${month}-${day} ${selectedRange[0]}`;
+    const endTime = `${year}-${month}-${day} ${selectedRange[1]}`;
+
+    const bookingData = {
+      bookingId: "12",
+      userId: "1",
+      seatId: "228",
+      confirmStatus: true,
+      startTime,
+      endTime,
+      eventId: "1212",
+      type: isConferenceOpen
+        ? "conference"
+        : isEventOpen
+        ? "event"
+        : "open-space",
+      information: numberOfPeople,
+      numberOfConference: isConferenceOpen ? "1" : null,
+    };
+
+    try {
+      const response = await fetch("http://localhost:5000/bookings", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(bookingData),
+      });
+
+      const result = await response.json();
+
+      const updatedBookingsResponse = await fetch(
+        "http://localhost:5000/bookings"
+      );
+      const updatedBookingsData = await updatedBookingsResponse.json();
+
+      setBooking(updatedBookingsData);
+
+      if (response.ok) {
+        setOpenModal(false);
+      } else {
+        console.error("Ошибка при создании бронирования:", result);
+      }
+    } catch (error) {
+      console.error("Ошибка при отправке данных:", error);
+    }
+  };
+
+  const getModalTitle = () => {
+    if (isConferenceOpen) {
+      return "Бронирование переговорки";
+    }
+    if (isEventOpen) {
+      return "Забронировать мероприятие";
+    }
+    return "Бронирование в open-space";
+  };
+
   useEffect(() => {
     if (canOpenModal) {
       document.body.style.overflow = "hidden";
@@ -62,7 +134,7 @@ export default function BookingButtons() {
               gap: "40px",
             }}
           >
-            <h3 className='booking-modal__title'>Бронирование в open-space</h3>
+            <h3 className='booking-modal__title'>{getModalTitle()}</h3>
             <Group
               style={{ display: "flex", flexDirection: "column", gap: "12px" }}
             >
@@ -175,6 +247,7 @@ export default function BookingButtons() {
                   mode='primary'
                   appearance='accent'
                   style={{ width: "222px", height: "44px" }}
+                  onClick={handleBooking}
                 >
                   Забронировать
                 </Button>

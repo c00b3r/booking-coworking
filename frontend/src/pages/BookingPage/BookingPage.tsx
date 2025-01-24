@@ -25,7 +25,7 @@ export default function BookingPage() {
 
   return (
     <main className='booking-main'>
-      <BookingButtons />
+      <BookingButtons setBooking={setBooking} />
       <CurrentBooking booking={booking} />
     </main>
   );

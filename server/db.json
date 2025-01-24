@@ -93,6 +93,19 @@
       "type": "event",
       "information": null,
       "numberOfConference": null
+    },
+    {
+      "id": "bcb6",
+      "bookingId": "12",
+      "userId": "1",
+      "seatId": "228",
+      "confirmStatus": true,
+      "startTime": "2025-01-29 07:00",
+      "endTime": "2025-01-29 14:00",
+      "eventId": "1212",
+      "type": "open-space",
+      "information": "2",
+      "numberOfConference": null
     }
   ],
   "seats": [
