@@ -1,0 +1,17 @@
+.history {
+  padding: 40px 130px;
+}
+
+.history__container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.history__container h4 {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 28px;
+  letter-spacing: 0.1px;
+  margin-bottom: 8px;
+}

@@ -1,0 +1,17 @@
+@font-face {
+  font-family: "VK Sans Display Regular";
+  src: url("./assets/fonts/VKSansDisplay-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "VK Sans Display Regular", sans-serif;
+}
+
+body {
+  background-color: rgba(235, 237, 240, 1);
+}
