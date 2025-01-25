@@ -25,7 +25,7 @@ export default function Table({ bookings }: TableProps) {
               key={booking.id}
               style={{
                 backgroundColor:
-                  index % 2 === 0 ? "rgba(255, 255, 255, 1)" : " ",
+                  (index + 1) % 2 === 0 ? "rgba(255, 255, 255, 1)" : " ",
               }}
             >
               <div className='table__item-text'>

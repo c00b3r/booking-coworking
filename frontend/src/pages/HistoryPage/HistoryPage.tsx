@@ -39,14 +39,14 @@ export default function HistoryPage() {
     <div className='history'>
       <div className='history__container'>
         <h4>История</h4>
-        <Flex style={{ display: "flex", gap: "16px" }}>
+        <Flex style={{ gap: "16px" }} justify="center">
           <FormItem noPadding>
             <Input
               before={<Icon16SearchOutline />}
               style={{ width: "283px" }}
               value={serach}
               onChange={(e) => setSearch(e.target.value)}
-            ></Input>
+            />
           </FormItem>
           <FormItem noPadding>
             <Select
