@@ -106,6 +106,19 @@
       "type": "open-space",
       "information": "2",
       "numberOfConference": null
+    },
+    {
+      "id": "a4bc",
+      "bookingId": "12",
+      "userId": "1",
+      "seatId": "228",
+      "confirmStatus": true,
+      "startTime": "2025-01-29 03:00",
+      "endTime": "2025-01-29 10:00",
+      "eventId": "1212",
+      "type": "conference",
+      "information": "3",
+      "numberOfConference": null
     }
   ],
   "seats": [
