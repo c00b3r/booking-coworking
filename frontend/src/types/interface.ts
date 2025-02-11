@@ -6,8 +6,8 @@ export interface Bookings {
   startTime: string;
   endTime: string;
   eventId: string;
-  id: string;
-  type: "open-space" | "conference" | "event";
+  id?: string;
+  type: string;
   information: number | null;
   numberOfConference: number | null;
 }

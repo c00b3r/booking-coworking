@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import { DatePicker } from "antd";
 import "./BookingButtons.css";
 import { Bookings } from "../../types/interface";
+import { createBooking } from "../../service/bookingService";
 
 const { RangePicker } = DatePicker;
 
@@ -65,32 +66,9 @@ export default function BookingButtons({ setBooking }: BookingButtonsProps) {
       numberOfConference: isConferenceOpen ? "1" : null,
     };
 
-    try {
-      const response = await fetch("http://localhost:5000/bookings", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(bookingData),
-      });
-
-      const result = await response.json();
-
-      const updatedBookingsResponse = await fetch(
-        "http://localhost:5000/bookings"
-      );
-      const updatedBookingsData = await updatedBookingsResponse.json();
-
-      setBooking(updatedBookingsData);
-
-      if (response.ok) {
-        setOpenModal(false);
-      } else {
-        console.error("Ошибка при создании бронирования:", result);
-      }
-    } catch (error) {
-      console.error("Ошибка при отправке данных:", error);
-    }
+    const updatedBookings = await createBooking(bookingData);
+    setBooking(updatedBookings);
+    setOpenModal(false);
   };
 
   const getModalTitle = () => {
