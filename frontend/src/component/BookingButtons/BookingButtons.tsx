@@ -244,6 +244,7 @@ export default function BookingButtons({ setBooking }: BookingButtonsProps) {
       {visibleBookingModal && (
         <ConfirmBookingModal
           visible={visibleBookingModal}
+          setVisibleBookingModal={setVisibleBookingModal}
           confirmBooking={confirmedBooking}
         />
       )}
