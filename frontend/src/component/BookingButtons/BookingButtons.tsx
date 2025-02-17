@@ -14,6 +14,9 @@ import { DatePicker } from "antd";
 import "./BookingButtons.css";
 import { Bookings } from "../../types/interface";
 import { createBooking } from "../../service/bookingService";
+import ConfirmBookingModal from "../ConfirmBookingModal/ConfirmBookingModal";
+
+import { getTypeOfBooking } from "../../utils/getTypeOfBooking";
 
 const { RangePicker } = DatePicker;
 
@@ -23,6 +26,10 @@ interface BookingButtonsProps {
 
 export default function BookingButtons({ setBooking }: BookingButtonsProps) {
   const [canOpenModal, setOpenModal] = useState(false);
+  const [visibleBookingModal, setVisibleBookingModal] = useState(false);
+  const [confirmedBooking, setConfirmedBooking] = useState<null | Bookings>(
+    null
+  );
   const [datePicker, setDatePicker] = useState<Date | undefined>(
     () => new Date()
   );
@@ -41,6 +48,7 @@ export default function BookingButtons({ setBooking }: BookingButtonsProps) {
   };
 
   const handleBooking = async () => {
+    setVisibleBookingModal(true);
     const selectedDate = datePicker || new Date();
     const year = selectedDate.getFullYear();
     const month = String(selectedDate.getMonth() + 1).padStart(2, "0");
@@ -57,14 +65,12 @@ export default function BookingButtons({ setBooking }: BookingButtonsProps) {
       startTime,
       endTime,
       eventId: "1212",
-      type: isConferenceOpen
-        ? "conference"
-        : isEventOpen
-        ? "event"
-        : "open-space",
-      information: numberOfPeople,
-      numberOfConference: isConferenceOpen ? "1" : null,
+      type: getTypeOfBooking(isConferenceOpen, isEventOpen),
+      information: Number(numberOfPeople),
+      numberOfConference: isConferenceOpen ? 1 : null,
     };
+
+    setConfirmedBooking(bookingData);
 
     const updatedBookings = await createBooking(bookingData);
     setBooking(updatedBookings);
@@ -94,7 +100,7 @@ export default function BookingButtons({ setBooking }: BookingButtonsProps) {
       <h3>Бронирование</h3>
       {canOpenModal && (
         <ModalPage
-          id='test-modal'
+          id='booking-modal'
           open
           onClose={() => {
             setOpenModal(false);
@@ -233,6 +239,13 @@ export default function BookingButtons({ setBooking }: BookingButtonsProps) {
             </Group>
           </Group>
         </ModalPage>
+      )}
+
+      {visibleBookingModal && (
+        <ConfirmBookingModal
+          visible={visibleBookingModal}
+          confirmBooking={confirmedBooking}
+        />
       )}
 
       <Flex style={{ flexDirection: "column" }}>

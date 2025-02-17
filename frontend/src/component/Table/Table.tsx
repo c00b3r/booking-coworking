@@ -29,7 +29,7 @@ export default function Table({ bookings }: TableProps) {
               }}
             >
               <div className='table__item-text'>
-                {bookingType[booking.type]}
+                {bookingType[booking.type as keyof typeof bookingType]}
               </div>
               <div className='table__item-text'>
                 {booking.numberOfConference === null
