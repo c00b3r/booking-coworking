@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import "./UserPage.css";
+import getUser from "../../service/userService";
 
 interface User {
   userid: string;
@@ -15,20 +16,18 @@ export default function UserPage() {
   const [userInfo, setUserInfo] = useState<User | null>(null);
 
   useEffect(() => {
-    async function getUser() {
+    async function getUserWithRole() {
       try {
-        const response = await fetch("http://localhost:5000/users");
-        const data = await response.json();
-        if (response.ok) {
-          const user = state.role === "user" ? data[0] : data[1];
-          setUserInfo(user);
-        }
+        const data = await getUser();
+
+        const user = state.role === "user" ? data[0] : data[1];
+        setUserInfo(user);
       } catch (error: Error | unknown) {
         console.error("Error fetching user:", error);
       }
     }
 
-    getUser();
+    getUserWithRole();
   }, [state.role]);
   return (
     <div className='profile'>

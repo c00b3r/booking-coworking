@@ -20,7 +20,7 @@ export default function CurrentBooking({ booking }: CurrentBookingProps) {
               key={bookingItem.id}
             >
               <h4 className='booking-main__current-booking-item_type'>
-                {bookingType[bookingItem.type]}
+                {bookingType[bookingItem.type as keyof typeof bookingType]}
               </h4>
               <div className='booking-main__current-booking-item_information'>
                 {bookingItem.confirmStatus === "pending" ? (
